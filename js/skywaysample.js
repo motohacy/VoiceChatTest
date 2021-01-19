@@ -34,7 +34,7 @@ const Peer = window.Peer;
     .catch(console.error);
 
   // Render local stream
-  localVideo.muted = true;
+  localVideo.muted = false;
   localVideo.srcObject = localStream;
   localVideo.playsInline = true;
   await localVideo.play().catch(console.error);
