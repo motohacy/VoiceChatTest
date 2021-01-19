@@ -12,7 +12,7 @@
 
 <hr>
 <div>
-    <h4>Self</h4>
+    <h4>Settings</h4>
     <div class="form-check-inline">
         <input class="form-check-input" type="checkbox" value="" id="check-video" checked>
         <label class="form-check-label" for="check-video">video</label>
@@ -22,14 +22,16 @@
         <label class="form-check-label" for="check-audio">audio</label>
     </div>
     <br>
-    <video id="local-stream-video"></video>
+    <div class="video-container">
+        <video id="local-stream-video"></video>
+    </div>
 </div>
 <hr>
 <div>
     <h4>Room</h4>
     <input type="text" placeholder="Room Name" id="room-id">
-    <button id="join-button" class="btn btn-primary mb-3">Join</button>
-    <button id="leave-button" class="btn btn-primary mb-3">Leave</button>
+    <button id="join-button" class="btn btn-primary">Join</button>
+    <button id="leave-button" class="btn btn-primary">Leave</button>
     <br>
     <div class="remote-streams" id="remote-streams"></div>
 </div>

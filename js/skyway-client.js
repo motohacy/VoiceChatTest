@@ -2,6 +2,8 @@ const Peer = window.Peer;
 
 (async function main() {
   const localVideo = document.getElementById('local-stream-video');
+  const localVideoTrigger = document.getElementById('check-video');
+  const localAudioTrigger = document.getElementById('check-audio');
   const joinTrigger = document.getElementById('join-button');
   const leaveTrigger = document.getElementById('leave-button');
   const remoteVideos = document.getElementById('remote-streams');
@@ -10,7 +12,6 @@ const Peer = window.Peer;
   const sendTrigger = document.getElementById('js-send-trigger');
   const messages = document.getElementById('js-messages');
 
-
   const localStream = await navigator.mediaDevices
     .getUserMedia({
       audio: true,
@@ -18,17 +19,23 @@ const Peer = window.Peer;
     })
     .catch(console.error);
 
-  // Render local stream
-  localVideo.muted = true;
+  localVideo.muted = false;
   localVideo.srcObject = localStream;
   localVideo.playsInline = true;
   await localVideo.play().catch(console.error);
 
-  // eslint-disable-next-line require-atomic-updates
   const peer = (window.peer = new Peer({
     key: window.__SKYWAY_KEY__,
     debug: 3,
   }));
+
+  localVideoTrigger.addEventListener('click', () => {
+    localStream.getVideoTracks()[0].enabled = localVideoTrigger.checked
+  });
+
+  localAudioTrigger.addEventListener('click', () => {
+    localStream.getAudioTracks()[0].enabled = localAudioTrigger.checked
+  });
 
   // Register join handler
   joinTrigger.addEventListener('click', () => {
