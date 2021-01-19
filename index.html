@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="ja">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SkyWay - Room example</title>
-    <link rel="stylesheet" href="./shared/style.css">
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="heading">Room example</h1>
-      <p class="note">
-        Change Room mode (before join in a room):
-        <a href="#">mesh</a> / <a href="#sfu">sfu</a>
-      </p>
-      <div class="room">
-        <div>
-          <video id="js-local-stream"></video>
-          <span id="js-room-mode"></span>:
-          <input type="text" placeholder="Room Name" id="js-room-id">
-          <button id="js-join-trigger">Join</button>
-          <button id="js-leave-trigger">Leave</button>
-        </div>
+    <title>videochat</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body style="margin:10px">
 
-        <div class="remote-streams" id="js-remote-streams"></div>
-
-        <div>
-          <pre class="messages" id="js-messages"></pre>
-          <input type="text" id="js-local-text">
-          <button id="js-send-trigger">Send</button>
-        </div>
-      </div>
-      <p class="meta" id="js-meta"></p>
+<hr>
+<div>
+    <h4>Self</h4>
+    <div class="form-check-inline">
+        <input class="form-check-input" type="checkbox" value="" id="check-video" checked>
+        <label class="form-check-label" for="check-video">video</label>
     </div>
+    <div class="form-check-inline">
+        <input class="form-check-input" type="checkbox" value="" id="check-audio" checked>
+        <label class="form-check-label" for="check-audio">audio</label>
+    </div>
+    <br>
+    <video id="local-stream-video"></video>
+</div>
+<hr>
+<div>
+    <h4>Room</h4>
+    <input type="text" placeholder="Room Name" id="room-id">
+    <button id="join-button" class="btn btn-primary mb-3">Join</button>
+    <button id="leave-button" class="btn btn-primary mb-3">Leave</button>
+    <br>
+    <div class="remote-streams" id="remote-streams"></div>
+</div>
+<hr>
+
+<div>
+    <pre class="messages" id="js-messages"></pre>
+    <input type="text" id="js-local-text">
+    <button id="js-send-trigger">Send</button>
+</div>
+<p class="meta" id="js-meta"></p>
+
     <script src="https://cdn.webrtc.ecl.ntt.com/skyway-4.2.0.js"></script>
-    <script src="./shared/key.js"></script>
-    <script src="./js/skywaysample.js"></script>
-  </body>
+    <script src="./js/key.js"></script>
+    <script src="./js/skyway-client.js"></script>
+</body>
 </html>
