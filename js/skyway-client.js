@@ -12,10 +12,21 @@ const Peer = window.Peer;
   const sendTrigger = document.getElementById('js-send-trigger');
   const messages = document.getElementById('js-messages');
 
+  var hasWebCam;
+  await navigator.mediaDevices.enumerateDevices().then(devices => {
+    hasWebCam = devices.some(device => 'videoinput' === device.kind);
+    console.log("hasWebCam", hasWebCam);
+  });
+
+  if(!hasWebCam) {
+    localVideoTrigger.enabled = false;
+    localVideoTrigger.disabled = true;
+  }
+
   const localStream = await navigator.mediaDevices
     .getUserMedia({
       audio: true,
-      video: true,
+      video: hasWebCam,
     })
     .catch(console.error);
 
