@@ -17,5 +17,15 @@ body {
 }
 
 #room-id {
-    width:150px;
+    width:200px;
+    margin-right:10px
+}
+
+.btn {
+    margin-right:10px
+}
+
+#local-text {
+    width:400px;
+    margin-right:10px
 }

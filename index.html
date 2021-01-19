@@ -31,17 +31,19 @@
     <h4>Room</h4>
     <form class="form-inline">
         <input type="text" class="form-control" id="room-id" placeholder="Room Name">
-        <button id="join-button" class="btn btn-light">Join</button>
-        <button id="leave-button" class="btn btn-light">Leave</button>
+        <button type = "button" id="join-button" class="btn btn-light">Join</button>
+        <button type = "button" id="leave-button" class="btn btn-light">Leave</button>
     </form>
     <br>
     <div class="remote-streams" id="remote-streams"></div>
 </div>
 <hr>
 <div>
+    <form class="form-inline">
+        <input type="text" id="local-text" class="form-control">
+        <button type = "button" id="send-button" class="btn btn-light">Send</button>
+    </form>
     <pre class="messages" id="messages"></pre>
-    <input type="text" id="local-text">
-    <button id="send-button">Send</button>
 </div>
 
     <script src="https://cdn.webrtc.ecl.ntt.com/skyway-4.2.0.js"></script>
