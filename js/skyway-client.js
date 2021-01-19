@@ -37,10 +37,7 @@ const Peer = window.Peer;
     localStream.getAudioTracks()[0].enabled = localAudioTrigger.checked
   });
 
-  // Register join handler
   joinTrigger.addEventListener('click', () => {
-    // Note that you need to ensure the peer has connected to signaling server
-    // before using methods of peer instance.
     if (!peer.open) {
       return;
     }
@@ -57,23 +54,24 @@ const Peer = window.Peer;
       messages.textContent += `=== ${peerId} joined ===\n`;
     });
 
-    // Render remote stream for new peer join in the room
     room.on('stream', async stream => {
+      const newVideoContainer = document.createElement('div');
+      newVideoContainer.className = 'video-container';
       const newVideo = document.createElement('video');
+      newVideo.className = 'stream-video';
       newVideo.srcObject = stream;
       newVideo.playsInline = true;
-      // mark peerId to find it later at peerLeave event
       newVideo.setAttribute('data-peer-id', stream.peerId);
-      remoteVideos.append(newVideo);
+      newVideoContainer.append(newVideo);
+      remoteVideos.append(newVideoContainer);
+
       await newVideo.play().catch(console.error);
     });
 
     room.on('data', ({ data, src }) => {
-      // Show a message sent to the room and who sent
       messages.textContent += `${src}: ${data}\n`;
     });
 
-    // for closing room members
     room.on('peerLeave', peerId => {
       const remoteVideo = remoteVideos.querySelector(
         `[data-peer-id="${peerId}"]`
@@ -85,7 +83,6 @@ const Peer = window.Peer;
       messages.textContent += `=== ${peerId} left ===\n`;
     });
 
-    // for closing myself
     room.once('close', () => {
       sendTrigger.removeEventListener('click', onClickSend);
       messages.textContent += '== You left ===\n';
@@ -100,9 +97,7 @@ const Peer = window.Peer;
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
 
     function onClickSend() {
-      // Send message to all of the peers in the room via websocket
       room.send(localText.value);
-
       messages.textContent += `${peer.id}: ${localText.value}\n`;
       localText.value = '';
     }
