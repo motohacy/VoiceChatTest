@@ -8,9 +8,9 @@ const Peer = window.Peer;
   const leaveTrigger = document.getElementById('leave-button');
   const remoteVideos = document.getElementById('remote-streams');
   const roomId = document.getElementById('room-id');
-  const localText = document.getElementById('js-local-text');
-  const sendTrigger = document.getElementById('js-send-trigger');
-  const messages = document.getElementById('js-messages');
+  const localText = document.getElementById('local-text');
+  const sendTrigger = document.getElementById('send-button');
+  const messages = document.getElementById('messages');
 
   var hasWebCam;
   await navigator.mediaDevices.enumerateDevices().then(devices => {
