@@ -15,3 +15,7 @@ body {
     padding：0px;
     background-color:#000000;
 }
+
+#room-id {
+    width:150px;
+}
