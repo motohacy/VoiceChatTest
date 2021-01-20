@@ -87,9 +87,11 @@ const Peer = window.Peer;
       const remoteVideo = remoteVideos.querySelector(
         `[data-peer-id="${peerId}"]`
       );
+      const remoteVideoContainer = remoteVideo.parentNode;
       remoteVideo.srcObject.getTracks().forEach(track => track.stop());
       remoteVideo.srcObject = null;
       remoteVideo.remove();
+      remoteVideoContainer.remove();
 
       messages.textContent += `=== ${peerId} left ===\n`;
     });
