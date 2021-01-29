@@ -35,9 +35,13 @@ const Peer = window.Peer;
   localVideo.playsInline = true;
   await localVideo.play().catch(console.error);
 
-  const peer = (window.peer = new Peer({
+  var credential = getCredential();
+  console.log("credential",credential);
+
+  const peer = (window.peer = new Peer(credential.peerId, {
     key: window.__SKYWAY_KEY__,
     debug: 3,
+    credential: credential,
   }));
 
   localVideoTrigger.addEventListener('click', () => {
