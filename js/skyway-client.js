@@ -106,11 +106,11 @@ const Peer = window.Peer;
 
         switch (message.type) {
           case MessageType.notify_name:
-           console.log('onMessageType.notify_name');
-           setTimeout(() => {
-             var name = document.getElementById('info-peer-id-' + src + '　');
-             name.textContent = message.data;
-           }, 3000);
+            console.log('onMessageType.notify_name');
+            setTimeout(() => {
+              var name = document.getElementById('info-peer-id-' + src);
+              name.textContent = message.data + '　';
+            }, 3000);
           break;
 
           case MessageType.chat:
@@ -122,6 +122,7 @@ const Peer = window.Peer;
        }
       }catch(e){
         messages.textContent += `${src}: An error occurred while decrypting the message.\n`;
+        messages.textContent += `${src}: ${data}\n`;
       }
     });
 
