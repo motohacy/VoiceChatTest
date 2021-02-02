@@ -8,6 +8,7 @@ const Peer = window.Peer;
   const leaveTrigger = document.getElementById('leave-button');
   const remoteVideos = document.getElementById('remote-streams');
   const roomId = document.getElementById('room-id');
+  const displayName = document.getElementById('display-name');
   const localText = document.getElementById('local-text');
   const sendTrigger = document.getElementById('send-button');
   const messages = document.getElementById('messages');
@@ -64,7 +65,10 @@ const Peer = window.Peer;
 
     room.once('open', () => {
       messages.textContent += '=== You joined ===\n';
+      // 自身の表示名をブロードキャストする
+      room.send(new Message(MessageType.notify_name, displayName.value).toJson());
     });
+
     room.on('peerJoin', peerId => {
       messages.textContent += `=== ${peerId} joined ===\n`;
     });
@@ -84,7 +88,25 @@ const Peer = window.Peer;
     });
 
     room.on('data', ({ data, src }) => {
-      messages.textContent += `${src}: ${data}\n`;
+
+      try{
+        var message = JSON.parse(data);
+
+        switch (message.type) {
+          case MessageType.notify_name:
+           messages.textContent += `${src}: 名前の通知 = ${message.data}\n`;
+          break;
+
+          case MessageType.chat:
+            messages.textContent += `${src}: ${message.data}\n`;
+          break;
+
+          default:
+            messages.textContent += `${src}: Unknown message type.\n`;
+       }
+      }catch(e){
+        messages.textContent += `${src}: An error occurred while decrypting the message.\n`;
+      }
     });
 
     room.on('peerLeave', peerId => {
@@ -114,7 +136,7 @@ const Peer = window.Peer;
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
 
     function onClickSend() {
-      room.send(localText.value);
+      room.send(new Message(MessageType.chat, localText.value).toJson());
       messages.textContent += `${peer.id}: ${localText.value}\n`;
       localText.value = '';
     }

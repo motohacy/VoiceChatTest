@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./js/define.js"></script>
+    <script type="text/javascript" src="./js/message.js"></script>
     <script type="text/javascript" src="./js/crypto-js/crypto-js.js"></script>
-
     <script type="text/javascript" src="./js/crypto-js/hmac-sha256.js"></script>
     <script type="text/javascript" src="./js/crypto-js/enc-base64.js"></script>
     <script type="text/javascript" src="./js/ss-stub.js"></script>
@@ -35,7 +36,8 @@
 <div>
     <h4>Room</h4>
     <form class="form-inline">
-        <input type="text" class="form-control" id="room-id" placeholder="Room Name">
+        <input type="text" class="form-control" id="display-name" placeholder="Your Name"><br>
+        　<input type="text" class="form-control" id="room-id" placeholder="Room Name">
         <button type = "button" id="join-button" class="btn btn-light">Join</button>
         <button type = "button" id="leave-button" class="btn btn-light">Leave</button>
     </form>
