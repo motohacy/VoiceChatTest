@@ -167,9 +167,6 @@ const Peer = window.Peer;
       leaveTrigger.disabled = true;
       sendTrigger.disabled = true;
       messages.textContent = "";
-      while( remoteVideos.firstChild ){
-        remoteVideos.removeChild(remoteVideos.firstChild);
-      }
     }
   });
 
