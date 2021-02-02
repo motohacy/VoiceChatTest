@@ -112,7 +112,7 @@ const Peer = window.Peer;
            setTimeout(() => {
              var name = document.getElementById('info-peer-id-' +src);
              name.textContent = message.data;
-           }, 3000
+           }, 3000);
           break;
 
           case MessageType.chat:
