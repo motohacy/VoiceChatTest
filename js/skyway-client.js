@@ -107,10 +107,8 @@ const Peer = window.Peer;
         switch (message.type) {
           case MessageType.notify_name:
            console.log('onMessageType.notify_name');
-           messages.textContent += `${src}: 名前の通知 = ${message.data}\n`;
-
            setTimeout(() => {
-             var name = document.getElementById('info-peer-id-' +src);
+             var name = document.getElementById('info-peer-id-' + src + '　');
              name.textContent = message.data;
            }, 3000);
           break;
