@@ -65,8 +65,11 @@ const Peer = window.Peer;
 
     room.once('open', () => {
       messages.textContent += '=== You joined ===\n';
-      // 自身の表示名をブロードキャストする
       room.send(new Message(MessageType.notify_name, displayName.value).toJson());
+      roomId.disabled = true;
+      displayName.disabled = true;
+      joinTrigger.disabled = true;
+      leaveTrigger.disabled = false;
     });
 
     room.on('peerJoin', peerId => {
@@ -74,14 +77,23 @@ const Peer = window.Peer;
     });
 
     room.on('stream', async stream => {
+      room.send(new Message(MessageType.notify_name, displayName.value).toJson());
+
       const newVideoContainer = document.createElement('div');
       newVideoContainer.className = 'video-container';
+      const newVideoInfo = document.createElement('div');
+      newVideoInfo.className = 'video-info';
+      const newVideoInfoSpan = document.createElement('span');
+      newVideoInfoSpan.className = 'video-info-span';
+      newVideoInfoSpan.id = 'info-peer-id-' + stream.peerId;
+      newVideoInfo.append(newVideoInfoSpan);
       const newVideo = document.createElement('video');
       newVideo.className = 'stream-video';
       newVideo.srcObject = stream;
       newVideo.playsInline = true;
       newVideo.setAttribute('data-peer-id', stream.peerId);
       newVideoContainer.append(newVideo);
+      newVideoContainer.append(newVideoInfo);
       remoteVideos.append(newVideoContainer);
 
       await newVideo.play().catch(console.error);
@@ -94,7 +106,13 @@ const Peer = window.Peer;
 
         switch (message.type) {
           case MessageType.notify_name:
+           console.log('onMessageType.notify_name');
            messages.textContent += `${src}: 名前の通知 = ${message.data}\n`;
+
+           setTimeout(() => {
+             var name = document.getElementById('info-peer-id-' +src);
+             name.textContent = message.data;
+           }, 3000
           break;
 
           case MessageType.chat:
@@ -133,14 +151,40 @@ const Peer = window.Peer;
     });
 
     sendTrigger.addEventListener('click', onClickSend);
-    leaveTrigger.addEventListener('click', () => room.close(), { once: true });
+    leaveTrigger.addEventListener('click', leaveRoom , { once: true });
 
     function onClickSend() {
       room.send(new Message(MessageType.chat, localText.value).toJson());
       messages.textContent += `${peer.id}: ${localText.value}\n`;
       localText.value = '';
     }
+
+    function leaveRoom() {
+      console.log("leaveRoom called.");
+      room.close();
+      roomId.disabled = false;
+      displayName.disabled = false;
+      joinTrigger.disabled = false;
+      leaveTrigger.disabled = true;
+      sendTrigger.disabled = true;
+      messages.textContent = "";
+      while( remoteVideos.firstChild ){
+        remoteVideos.removeChild(remoteVideos.firstChild);
+      }
+    }
   });
+
+  roomId.addEventListener('focusout', switchJoinTrigger);
+  roomId.addEventListener('input', switchJoinTrigger);
+  displayName.addEventListener('focusout', switchJoinTrigger);
+  displayName.addEventListener('input', switchJoinTrigger);
+  function switchJoinTrigger() {
+      if((roomId.value) && (displayName.value)) {
+        joinTrigger.disabled = false;
+      } else {
+        joinTrigger.disabled = true;
+      }
+  }
 
   peer.on('error', console.error);
 })();

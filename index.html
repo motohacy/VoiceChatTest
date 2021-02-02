@@ -30,6 +30,7 @@
     <br>
     <div class="video-container">
         <video id="local-stream-video" class="stream-video"></video>
+        <div class="video-info"><span class="video-info-span">self　</span></div>
     </div>
 </div>
 <hr>
@@ -38,8 +39,8 @@
     <form class="form-inline">
         <input type="text" class="form-control" id="display-name" placeholder="Your Name"><br>
         　<input type="text" class="form-control" id="room-id" placeholder="Room Name">
-        <button type = "button" id="join-button" class="btn btn-light">Join</button>
-        <button type = "button" id="leave-button" class="btn btn-light">Leave</button>
+        <button type = "button" id="join-button" class="btn btn-light" disabled>Join</button>
+        <button type = "button" id="leave-button" class="btn btn-light" disabled>Leave</button>
     </form>
     <br>
     <div class="remote-streams" id="remote-streams"></div>
